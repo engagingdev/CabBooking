@@ -1,0 +1,248 @@
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Poppins);
+
+/*basic reset*/
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "poppins", sans-serif;
+}
+
+html {
+  background: #5a6c7e;
+
+  overflow: auto;
+  overflow-x: hidden;
+
+  /*Image only BG fallback*/
+
+  /*background = gradient + image pattern combo*/
+}
+
+/*form styles*/
+#msform {
+  width: 100%;
+  height: 100%;
+  margin: 50px auto;
+  text-align: center;
+  position: absolute;
+}
+#msform fieldset {
+  background: white;
+  border: 0 none;
+  border-radius: 3px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+  padding: 20px 30px;
+  box-sizing: border-box;
+  width: 60%;
+
+  margin: 0 20%;
+
+  /*stacking fieldsets above each other*/
+  position: relative;
+}
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+  display: none;
+}
+/*inputs*/
+#msform input[type="text"],
+#msform input[type="number"],
+#msform textarea {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  color: #2c3e50;
+  font-size: 13px;
+}
+/*buttons*/
+#msform .action-button {
+  width: 100px !important;
+  background: #27ae60;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 1px;
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px 5px;
+  text-decoration: none;
+  font-size: 14px;
+}
+#msform .action-button:hover,
+#msform .action-button:focus {
+  box-shadow: 0 0 0 2px white, 0 0 0 3px #27ae60;
+}
+label {
+  font-size: 100%;
+}
+table tr td {
+  font-size: 120%;
+  vertical-align: middle;
+}
+select,
+span {
+  font-size: 100% !important;
+}
+/*headings*/
+.fs-title {
+  font-size: 20px;
+
+  font-weight: bold;
+  /* text-transform: uppercase; */
+  color: #5a6c7e;
+  margin-bottom: 10px;
+}
+.fs-label {
+  font-size: 60%;
+
+  font-weight: bold;
+  /* text-transform: uppercase; */
+  color: #5a6c7e;
+  margin-bottom: 10px;
+  text-align: left;
+
+  margin-top: 10px;
+}
+.fs-label-1 {
+  font-size: 60%;
+
+  font-weight: bold;
+  /* text-transform: uppercase; */
+  color: #5a6c7e;
+  margin-bottom: 10px;
+  text-align: left;
+
+  margin-top: 10px;
+}
+.fs-label-2 {
+  font-size: 60%;
+
+  font-weight: bold;
+  /* text-transform: uppercase; */
+  color: #5a6c7e;
+  margin-bottom: 10px;
+  text-align: left;
+
+  margin-top: 10px;
+}
+.fs-subtitle {
+  font-weight: normal;
+  font-size: 17px;
+  color: #666;
+  margin-bottom: 20px;
+}
+/*progressbar*/
+#progressbar {
+  margin: auto;
+  margin-left: calc(17% - 30px);
+  margin-bottom: 30px;
+  overflow: auto;
+  /*CSS counters to number the steps*/
+  counter-reset: step;
+  width: 70%;
+}
+#progressbar li {
+  list-style-type: none;
+  color: white;
+  text-transform: uppercase;
+  font-size: 9px;
+  width: 20%;
+  float: left;
+  position: relative;
+}
+#progressbar li:before {
+  content: counter(step);
+  counter-increment: step;
+  width: 35px;
+  line-height: 35px;
+  display: block;
+  font-size: 10px;
+  color: #333;
+  background: white;
+  border-radius: 3px;
+  margin: 0 auto 5px auto;
+}
+/*progressbar connectors*/
+#progressbar li:after {
+  content: "";
+  width: 100%;
+  height: 7px;
+  background: white;
+  position: absolute;
+  left: -50%;
+  top: 14px;
+  z-index: -1; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+  /*connector not needed before the first step*/
+  content: none;
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before,
+#progressbar li.active:after {
+  background: #27ae60;
+  color: white;
+}
+img {
+  width: 70%;
+  height: auto;
+  opacity: 0.5;
+}
+img:hover {
+  opacity: 1;
+}
+.subimg1 {
+  opacity: 1;
+}
+.subimg1:hover {
+  opacity: 1;
+}
+.subimg2 {
+  opacity: 1;
+}
+.subimg2:hover {
+  opacity: 1;
+}
+
+.zoomed-image-container {
+  position: absolute;
+  z-index: 1000;
+  opacity: 1;
+  left: 25%;
+  top: 33%;
+  display: none;
+}
+
+/* Style for the zoomed image inside the container */
+.zoomed-image {
+  width: 50vw; /* Adjust size as needed */
+  max-height: 50vh; /* Adjust size as needed */
+  opacity: 1;
+  object-fit: contain; /* Ensure image fits within container */
+}
+.dis_button {
+  border: 1px solid #999999 !important;
+  background-color: #cccccc !important;
+  color: #666666 !important;
+}
+@media only screen and (max-width: 767px) {
+  .err_row {
+    display: block;
+  }
+  .err_col {
+    width: 100%;
+  }
+  table tr td {
+    font-size: 60%;
+  }
+  #msform fieldset {
+    width: 80%;
+
+    margin: 0 10%;
+  }
+}

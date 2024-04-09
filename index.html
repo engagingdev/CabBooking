@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Taxi Reservation</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/custom.css" />
+  <style>
+    .person i {
+      color: black;
+      /* default color */
+      width: 40px;
+      height: 25px;
+      font-size: 3em;
+    }
+
+    .person i.active {
+      color: red;
+    }
+
+    .large i {
+      color: black;
+      /* default color */
+      width: 40px;
+      height: 25px;
+      font-size: 2.5em;
+    }
+
+    .large i.active {
+      color: red;
+    }
+
+    .small i {
+      color: black;
+      /* default color */
+      width: 40px;
+      height: 30px;
+      font-size: 3.5em;
+    }
+
+    .iti {
+      width: 100%;
+    }
+
+    .small i.active {
+      color: red;
+    }
+
+    table tr td:first-child {
+      width: 3%;
+    }
+
+    .spinner {
+      /* Initially hidden */
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 2s linear infinite;
+      margin-left: auto;
+    }
+
+    /* Keyframe animation for the spinner rotation */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Style for displaying the price in red color */
+    .red-text {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- multistep form -->
+
+  <form id="msform" method="post" action="index.html">
+    <!-- progressbar -->
+    <ul id="progressbar">
+      <li class="active"></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <!-- fieldsets -->
+    <fieldset>
+      <br />
+      <h1 class="fs-title">Bitte Fahrentyp auswählen</h1>
+      <br />
+      <!-- <h3 class="fs-subtitle">This is step 1</h3> -->
+      <div class="row">
+        <div class="col-md-6">
+          <img data_name="Taxifahrt" id="car" src="./assets/png/car.png" /><br />
+          <span style="text-align: center">Taxifahrt</span>
+        </div>
+        <div class="col-md-6">
+          <img data_name="Flughafentransfer" id="plane" src="./assets/png/plane.png" /><br />
+          <span style="text-align: center">Flughafentransfer</span>
+        </div>
+      </div>
+
+      <input type="button" id="t_button" name="next" class="next action-button dis_button" value="Weiter" disabled />
+    </fieldset>
+    <fieldset>
+      <div class="plane">
+        <br />
+        <h2 class="fs-title">Flughafentransfer Informationen</h2>
+        <br />
+        <div class="row err_row">
+          <div class="col-6 err_col mt-2">
+            <div class="form-floating">
+              <select class="form-select" id="drive" name="drive">
+                <option value="0">Vom Flughafen</option>
+                <option value="1">Zum Flughafen</option>
+              </select>
+              <label for="drive" class="form-label">Fahrt</label>
+            </div>
+          </div>
+          <div class="col-6 err_col mt-2">
+            <div class="form-floating">
+              <input id="datepicker" placeholder="Datum / Uhrzeit" class="form-control bg-white datepicker"
+                data-date-format="m/d/Y G:iK" data-enable-time="true" id="date" style="height: 60px" />
+              <label for="date">Datum / Uhrzeit</label>
+            </div>
+          </div>
+        </div>
+        <h3 class="fs-label mt-3 flug">Flug <span style="color: red">*</span></h3>
+        <div class="row flug">
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="dep_location" placeholder="Enter Abflugort"
+                name="dep_location" />
+              <label for="Street">Abflugort</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="fli_number" placeholder="Enter Flugnummer"
+                name="fli_number" />
+              <label for="email">Flugnummer</label>
+            </div>
+          </div>
+        </div>
+        <h3 class="fs-label-1 mt-3">
+          Zieladresse <span style="color: red">*</span>
+        </h3>
+        <h3 class="fs-label-2 mt-3" style="display: none">
+          Abholadresse <span style="color: red">*</span>
+        </h3>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="address_p" name="address_p" placeholder="Enter Zieladresse">
+              <label for="address_p" id="pick">Zieladresse</label>
+              <label for="address_p" id="destination" style="display: none">Abholadresse</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6 mb-3" style="margin-top: 4%;">
+            <div class="form-floating">
+              <select class="form-select" id="info_selection" name="info_selection">
+                <option value="0">Ankunftshalle</option>
+                <option value="1">Infoschalter</option>
+              </select>
+              <label for="info_selection" class="form-label">Informationen</label>
+            </div>
+          </div>
+          <div class="col-6 err_col">
+            <img class="subimg1" id="arrival" src="./assets/png/car.png" />
+            <div class="zoomed-image-container" id="zoomedArrivalContainer">
+              <img class="zoomed-image" id="zoomedArrival" src="./assets/png/car.png" />
+            </div>
+            <img class="subimg2" id="desk" src="./assets/png/bus.png" style="display: none" />
+          </div>
+        </div>
+      </div>
+      <div class="car" style="display: none">
+        <h2 class="fs-title">Fahrtendetails</h2>
+        <!-- <h3 class="fs-subtitle">Your presence on the social network</h3> -->
+        <div class="row">
+          <div class="col-12">
+            <div class="form-floating">
+              <input id="datepicker1" placeholder="Datum / Uhrzeit" class="form-control bg-white datepicker"
+                data-date-format="m/d/Y G:iK" data-enable-time="true" id="date" style="height: 60px" />
+              <label for="date">Datum / Uhrzeit</label>
+            </div>
+          </div>
+        </div>
+        <h3 class="fs-label mt-3">Abholadresse</h3>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="p_address" name="p_address" placeholder="Enter Abholadresse">
+              <label for="p_address">Abholadresse</label>
+            </div>
+          </div>
+        </div>
+        <h3 class="fs-label mt-3">Zieladresse</h3>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="d_address" name="d_address" placeholder="Enter Zieladresse">
+              <label for="d_address">Zieladresse</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <input type="button" name="previous" class="previous action-button" value="Zurück" />
+      <input type="button" name="next" class="next action-button" value="Weiter" />
+    </fieldset>
+    <fieldset>
+      <br />
+      <h2 class="fs-title" style="font-size: 100%;">Fahrgast Informationen</h2>
+      <!-- <h3 class="fs-subtitle">Your presence on the social network</h3> -->
+
+      <div class="row err_row">
+        <div class="col-6 err_col" style="margin-top: 4%;">
+          <div class="form-floating">
+            <select class="form-select" id="type_selection" name="type_selection">
+              <option value="0">PKW</option>
+              <option value="1">Bus</option>
+            </select>
+            <label for="type_selection" class="form-label">Fahrzeugauswahl</label>
+          </div>
+          <br />
+          <div id="vehicle-warning" style="color: red; display: none; text-align: left; font-size: 10px;">
+            Achtung! Sind Sie sicher, dass Sie und Ihr Gepäck in einem PKW ausreichend Platz haben? Falls sich bei der
+            Abfahrt herausstellen sollte, dass nicht ausreichend Platz vorhanden ist, müssen wir Ihnen die Kosten für
+            ein größeres Fahrzeug in Rechnung stellen oder die Fahrt ggf. stornieren.
+          </div>
+        </div>
+
+        <div class="col-6 err_col">
+          <img class="subimg1" id="car" src="./assets/png/car.png" />
+          <img class="subimg2" id="car" src="./assets/png/bus.png" style="display: none" />
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <div class="form-floating">
+            <input type="number" class="form-control" id="person" placeholder="Enter Personen" name="person"
+              value="0" />
+            <label for="person">Personen</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-floating">
+            <input type="number" class="form-control" id="large" placeholder="Enter Gepäck GroB" name="large"
+              value="0" />
+            <label for="large">Gepäck GroB</label>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-floating">
+            <input type="number" class="form-control" id="small" placeholder="Enter Gepäck klein" name="small"
+              value="0" />
+            <label for="small">Gepäck klein</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-4 mb-5">
+          <div class="person" style="text-align: left;">
+            <i class="fa-solid fa-person fa-2xl"></i>
+            <i class="fa-solid fa-person fa-2xl"></i>
+            <i class="fa-solid fa-person fa-2xl"></i> <br /><br />
+            <i class="fa-solid fa-person fa-2xl"></i>
+            <i class="fa-solid fa-person fa-2xl"></i>
+            <i class="fa-solid fa-person fa-2xl"></i> <br /><br />
+            <i class="fa-solid fa-person fa-2xl"></i>
+            <i class="fa-solid fa-person fa-2xl"></i>
+          </div>
+        </div>
+        <div class="col-md-4  mb-5">
+          <div class="large" style="text-align: left;">
+            <i class="fa-solid fa-briefcase fa-2xl"></i>
+            <i class="fa-solid fa-briefcase fa-2xl"></i>
+            <i class="fa-solid fa-briefcase fa-2xl"></i> <br /><br />
+            <i class="fa-solid fa-briefcase fa-2xl"></i>
+            <i class="fa-solid fa-briefcase fa-2xl"></i>
+            <i class="fa-solid fa-briefcase fa-2xl"></i> <br /><br />
+            <i class="fa-solid fa-briefcase fa-2xl"></i>
+            <i class="fa-solid fa-briefcase fa-2xl"></i>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="small" style="text-align: left;">
+            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i> <br /><br />
+            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i> <br /><br />
+            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row mt-5">
+          <div class="col-md-6">
+            <input type="checkbox" value="" id="flexCheckDefault" />
+            <label class="form-check-label" for="flexCheckDefault">
+              Default checkbox
+            </label>
+          </div>
+        </div> -->
+      <br />
+      <br />
+      <div style="display: flex; margin-bottom: 10px;">
+        <div class="form-check mb-2" style="text-align: left; margin-top: 6px;">
+          <input class="form-check-input" type="checkbox" value="" id="child" name="child" />
+          <label class="form-check-label ml-3" for="child" style="text-align: left;">
+            Kindersitz
+          </label>
+        </div>
+        <select class="form-select" style="width: 10px; margin-left: 43px; display: none;" id="child" name="child">
+          <option value="0">1</option>
+          <option value="1">2</option>
+          <option value="1">3</option>
+        </select>
+      </div>
+      <div style="display: flex;  margin-bottom: 10px;">
+        <div class="form-check mb-2" style="text-align: left; margin-top: 6px;">
+          <input class="form-check-input" type="checkbox" value="" id="baby" name="baby" />
+          <label class="form-check-label ml-3" for="baby" style="text-align: left">
+            Babyschale
+          </label>
+        </div>
+        <select class="form-select" style="width: 10px; margin-left: 25px; display: none" id="baby" name="baby">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+      <div style="display: flex;  margin-bottom: 10px;">
+        <div class="form-check mb-2" style="text-align: left; margin-top: 6px;">
+          <input class="form-check-input" type="checkbox" value="" id="booster" name="booster" />
+          <label class="form-check-label ml-3" for="booster" style="text-align: left">
+            Sitzerhöhung
+          </label>
+        </div>
+        <select class="form-select" style="width: 10px; margin-left: 15px; display: none" id="booster" name="booster">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+      <div class="form-check mb-2" style="text-align: left">
+        <input class="form-check-input" type="checkbox" value="" id="special" name="special" />
+        <label class="form-check-label ml-3" for="special" style="text-align: left">
+          Sondergepäck
+        </label>
+      </div>
+      <div style="text-align: right;">Price</div>
+      <div style="text-align: right;" id="priceDisplay">$0.00</div>
+
+      <input type="button" name="previous" class="previous action-button mt-4" value="Zurück" />
+      <input type="button" name="next" class="next action-button mt-4" value="Weiter" />
+    </fieldset>
+    <fieldset>
+      <br />
+      <h2 class="fs-title">Kontakt Informationen</h2>
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="fist_name" placeholder="Enter Vorname" name="fist_name" />
+            <label for="fist_name">Vorname</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="last_name" placeholder="Enter Nachname" name="last_name" />
+            <label for="last_name">Nachname</label>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-6" style="margin-bottom: 10px;">
+          <div class="form-floating">
+            <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" />
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <input class="form-control" id="phone" type="tel" name="phone" style="height: 57px; " />
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <div class="form-floating">
+            <textarea type="text" class="form-control" id="remarks" placeholder="Enter Anmerkungen" name="remarks"
+              cols="30"></textarea>
+            <label for="remarks">Anmerkungen</label>
+          </div>
+        </div>
+      </div>
+      <input type="button" name="previous" class="previous action-button" value="Zurück" />
+      <input type="button" name="next" class="final next action-button" value="Weiter" />
+    </fieldset>
+    <fieldset>
+      <br />
+      <h2 class="fs-title">Zusammenfassung</h2>
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <table class="summary table table-bordered"></table>
+        </div>
+      </div>
+      <div class="form-check mb-2" style="text-align: left">
+        <input class="form-check-input" type="checkbox" value="checked" id="term" name="term" />
+        <label class="form-check-label ml-3" for="term" style="text-align: left; font-size: small;">
+          Bitte lesen Sie vor der Bestellung unsere AGB durch und bestätigen Sie, dass Sie die AGB akzeptieren.
+        </label>
+      </div>
+
+      <input type="button" name="previous" class="previous action-button" value="Zurück" />
+      <button type="submit" class="submit action-button dis_button" target="_top" disabled>
+        Submit
+      </button>
+    </fieldset>
+  </form>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKurnK0MaGjmukvRAxnewj7D6LW7gt4yo&libraries=places"></script>
+  <script src="./assets/js/custom.js"></script>
+</body>
+<script>
+  const personIcons = document.querySelectorAll(".person i");
+  const numberInput = document.getElementById("person");
+
+  const largeIcons = document.querySelectorAll(".large i");
+  const largeInput = document.getElementById("large");
+
+  const smallIcons = document.querySelectorAll(".small i");
+  const smallInput = document.getElementById("small");
+
+  function updatePersonIcons() {
+    const value = parseInt(numberInput.value);
+    personIcons.forEach((icon, index) => {
+      if (index < value) {
+        icon.classList.add("active");
+      } else {
+        icon.classList.remove("active");
+      }
+    });
+
+
+    // Check if the value exceeds 5 to automatically select "Bus"
+    if (value >= 5) $("#type_selection").val("1");
+  }
+
+  function updateLargeIcons() {
+    const value = parseInt(largeInput.value);
+    largeIcons.forEach((icon, index) => {
+      if (index < value) {
+        icon.classList.add("active");
+      } else {
+        icon.classList.remove("active");
+      }
+    });
+    if ($("#type_selection").val() == "0") {
+      if (value > 2) $("#vehicle-warning").show();
+      else $("#vehicle-warning").hide();
+    } else {
+      if (value > 8) $("#vehicle-warning").show();
+      else $("#vehicle-warning").hide();
+    }
+    updateSmallIcons();
+  }
+
+  function updateSmallIcons() {
+    const value = parseInt(smallInput.value);
+    smallIcons.forEach((icon, index) => {
+      if (index < value) {
+        icon.classList.add("active");
+      } else {
+        icon.classList.remove("active");
+      }
+    });
+    console.log($(".large").val());
+    if ($("#type_selection").val() == "0") {
+      if (($("#large").val() <= 2 && value <= 2) || (value <= 4 && $("#large").val() == "0")) $("#vehicle-warning").hide();
+      else $("#vehicle-warning").show();
+    } else {
+      if (($("#large").val() <= 8 && value <= 4) || (value <= 8 && $("#large").val() == "0")) $("#vehicle-warning").hide();
+      else $("#vehicle-warning").show();
+    }
+  }
+
+
+  numberInput.addEventListener("change", updatePersonIcons);
+  largeInput.addEventListener("change", updateLargeIcons);
+  smallInput.addEventListener("change", updateSmallIcons);
+
+
+  personIcons.forEach((icon, index) => {
+    icon.addEventListener("click", () => {
+      numberInput.value = index + 1;
+      updatePersonIcons();
+    });
+  });
+
+  largeIcons.forEach((icon, index) => {
+    icon.addEventListener("click", () => {
+      largeInput.value = index + 1;
+      updateLargeIcons();
+    });
+  });
+
+  smallIcons.forEach((icon, index) => {
+    icon.addEventListener("click", () => {
+      smallInput.value = index + 1;
+      updateSmallIcons();
+    });
+  });
+
+
+  updatePersonIcons();
+  updateLargeIcons();
+  updateSmallIcons();
+</script>
+<script>
+  const phoneInputField = document.querySelector("#phone");
+  const phoneInput = window.intlTelInput(phoneInputField, {
+    utilsScript:
+      "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  });
+</script>
+<script>
+  $("#drive").on("change", function () {
+    var pos = $("#drive").val();
+    if (pos === "0") {
+      $(".fs-label-1").show();
+      $(".fs-label-2").hide();
+      $("#pick").show();
+      $("#destination").hide();
+      $(".flug").show();
+    } else {
+      $(".fs-label-1").hide();
+      $(".fs-label-2").show();
+      $("#pick").hide();
+      $("#destination").show();
+      $(".flug").hide();
+    }
+  });
+  $("#type_selection").on("change", function () {
+    var pos = $("#type_selection").find(":selected").val();
+    if (pos === "0") {
+      $(".subimg1").show();
+      $(".subimg2").hide();
+    } else {
+      $(".subimg1").hide();
+      $(".subimg2").show();
+    }
+    updatePersonIcons();
+    updateLargeIcons();
+    updateSmallIcons();
+  });
+  $("#info_selection").on("change", function () {
+    var pos = $("#info_selection").find(":selected").val();
+    if (pos === "0") {
+      $(".subimg1").show();
+      $(".subimg2").hide();
+    } else {
+      $(".subimg1").hide();
+      $(".subimg2").show();
+    }
+  });
+</script>
+<script>
+  function initAutocomplete() {
+    var input = document.getElementById('p_address');
+    var input1 = document.getElementById('d_address');
+    var input2 = document.getElementById('address_p');
+
+    var options = {
+      // types: ['geocode'], // Restrict to addresses only
+      // componentRestrictions: { country: 'Au' } // Optional: Restrict to specific country
+      types: ['address'], // Restrict to addresses only
+      componentRestrictions: { country: 'AT' } // Optional: Restrict to specific country
+    };
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    var autocomplete = new google.maps.places.Autocomplete(input1, options);
+    var autocomplete = new google.maps.places.Autocomplete(input2, options);
+
+  }
+
+  // Event listener to initialize autocomplete on page load
+  document.addEventListener('DOMContentLoaded', function () {
+    initAutocomplete();
+  });
+</script>
+
+<script>
+  // Get references to the image elements
+  $("#arrival").on("click", function () {
+    $("#zoomedArrivalContainer").show();
+    $("#arrival").hide();
+
+  });
+  $("#zoomedArrivalContainer").on("click", function () {
+    $("#zoomedArrivalContainer").hide();
+    $("#arrival").show();
+  });
+  $('#term').on("click", function () {
+    if ($('#term:checked').val() !== undefined) {
+      $(".submit").removeClass('dis_button');
+      $(".submit").removeAttr('disabled');
+
+    }
+    else {
+      $(".submit").addClass("dis_button");
+      $(".submit").attr("disabled", true);
+    }
+  });
+
+</script>
+<script>
+  const personInput = document.getElementById('person');
+  const priceDisplay = document.getElementById('priceDisplay');
+  const spinner = document.createElement('div');
+  spinner.className = 'spinner';
+  personInput.addEventListener('input', () => {
+    // Display spinner for 2 seconds
+    $("#priceDisplay").after(spinner);
+    $("#priceDisplay").hide();
+    setTimeout(() => {
+      $(".spinner").remove();
+      $("#priceDisplay").show();
+
+      // Update the price display with red color
+      const currentPrice = calculatePrice(personInput.value); // Example: Calculate price based on input
+      priceDisplay.textContent = `$${currentPrice.toFixed(2)}`;
+      priceDisplay.classList.add('red-text'); // Apply red color to price text
+    }, 2000);
+  });
+  $("#baby").on("click", function () {
+    $("select[id=baby]").toggle();
+    $("#priceDisplay").after(spinner);
+    $("#priceDisplay").hide();
+    setTimeout(() => {
+      $(".spinner").remove();
+      $("#priceDisplay").show();
+
+      // Update the price display with red color
+      const currentPrice = calculatePrice(personInput.value); // Example: Calculate price based on input
+      priceDisplay.textContent = `$${currentPrice.toFixed(2)}`;
+      priceDisplay.classList.add('red-text'); // Apply red color to price text
+    }, 2000);
+  });
+  $("#booster").on("click", function () {
+    $("select[id=booster]").toggle();
+    $("#priceDisplay").after(spinner);
+    $("#priceDisplay").hide();
+    setTimeout(() => {
+      $(".spinner").remove();
+      $("#priceDisplay").show();
+
+      // Update the price display with red color
+      const currentPrice = calculatePrice(personInput.value); // Example: Calculate price based on input
+      priceDisplay.textContent = `$${currentPrice.toFixed(2)}`;
+      priceDisplay.classList.add('red-text'); // Apply red color to price text
+    }, 2000);
+  });
+  $("#child").on("click", function () {
+    $("select[id=child]").toggle();
+    $("#priceDisplay").after(spinner);
+    $("#priceDisplay").hide();
+    setTimeout(() => {
+      $(".spinner").remove();
+      $("#priceDisplay").show();
+
+      // Update the price display with red color
+      const currentPrice = calculatePrice(personInput.value); // Example: Calculate price based on input
+      priceDisplay.textContent = `$${currentPrice.toFixed(2)}`;
+      priceDisplay.classList.add('red-text'); // Apply red color to price text
+    }, 1500);
+  });
+  $("#special").on("click", function () {
+    $("#type_selection").val("1");
+  });
+
+
+  // Function to calculate price based on input (example)
+  function calculatePrice(personCount) {
+    const basePricePerPerson = 10;
+    return basePricePerPerson * parseInt(personCount);
+  }
+</script>
+
+</html>
