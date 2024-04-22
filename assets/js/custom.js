@@ -12,8 +12,8 @@ $("#car").click(function () {
   $(".plane").css({ 'display': 'none' });
   $(".car").css({ 'display': 'block' });
   v_tyle = $("#car").attr("data_name");
-  $("#t_button").removeClass("dis_button");
-  $("#t_button").removeAttr("disabled");
+  // $("#t_button").removeClass("dis_button");
+  // $("#t_button").removeAttr("disabled");
 });
 
 $("#plane").click(function () {
@@ -22,48 +22,47 @@ $("#plane").click(function () {
   $(".car").css({ 'display': 'none' });
   $(".plane").css({ 'display': 'block' });
   v_tyle = $("#plane").attr("data_name");
-  $("#t_button").removeClass("dis_button");
-  $("#t_button").removeAttr("disabled");
+  // $("#t_button").removeClass("dis_button");
+  // $("#t_button").removeAttr("disabled");
 });
 
 $(".next").click(function () {
-  if (v_tyle != "") {
-    if (animating) return false;
-    animating = true;
 
-    current_fs = $(this).parent();
-    next_fs = $(this).parent().next();
+  if (animating) return false;
+  animating = true;
 
-    //activate next step on progressbar using the index of next_fs
-    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+  current_fs = $(this).parent();
+  next_fs = $(this).parent().next();
 
-    //show the next fieldset
-    next_fs.show();
-    //hide the current fieldset with style
-    current_fs.animate({ opacity: 0 }, {
-      step: function (now, mx) {
-        //as the opacity of current_fs reduces to 0 - stored in "now"
-        //1. scale current_fs down to 80%
-        scale = 1 - (1 - now) * 0.2;
-        //2. bring next_fs from the right(50%)
-        left = (now * 50) + "%";
-        //3. increase opacity of next_fs to 1 as it moves in
-        opacity = 1 - now;
-        current_fs.css({
-          'transform': 'scale(' + scale + ')',
-          'position': 'absolute'
-        });
-        next_fs.css({ 'left': left, 'opacity': opacity });
-      },
-      duration: 800,
-      complete: function () {
-        current_fs.hide();
-        animating = false;
-      },
-      //this comes from the custom easing plugin
-      easing: 'easeInOutBack'
-    });
-  }
+  //activate next step on progressbar using the index of next_fs
+  $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+  //show the next fieldset
+  next_fs.show();
+  //hide the current fieldset with style
+  current_fs.animate({ opacity: 0 }, {
+    step: function (now, mx) {
+      //as the opacity of current_fs reduces to 0 - stored in "now"
+      //1. scale current_fs down to 80%
+      scale = 1 - (1 - now) * 0.2;
+      //2. bring next_fs from the right(50%)
+      left = (now * 50) + "%";
+      //3. increase opacity of next_fs to 1 as it moves in
+      opacity = 1 - now;
+      current_fs.css({
+        'transform': 'scale(' + scale + ')',
+        'position': 'absolute'
+      });
+      next_fs.css({ 'left': left, 'opacity': opacity });
+    },
+    duration: 800,
+    complete: function () {
+      current_fs.hide();
+      animating = false;
+    },
+    //this comes from the custom easing plugin
+    easing: 'easeInOutBack'
+  });
 });
 
 $(".previous").click(function () {
@@ -100,10 +99,6 @@ $(".previous").click(function () {
     easing: 'easeInOutBack'
   });
 });
-flatpickr('.datepicker', {
-  // put options here if your don't want to add them via data- attributes
-});
-
 $(".final").click(function () {
   if (v_tyle == "Flughafentransfer") {
     var html = "";
@@ -111,8 +106,8 @@ $(".final").click(function () {
       Vorname: $("#fist_name").val(),
       Nachname: $("#last_name").val(),
       "E-Mail": $("#email").val(),
-      Abholdatum: $("#datepicker").val().split(" ")[0],
-      Abholzeit: $("#datepicker").val().split(" ")[1],
+      Abholdatum: $("#datepicker").val(),
+      Abholzeit: $("#time").val(),
       Abflugort: $("#dep_location").val(),
       Flugnummer: $("#fli_number").val(),
       adresse: $("#address_p").val(),
@@ -143,8 +138,8 @@ $(".final").click(function () {
       Vorname: $("#fist_name").val(),
       Nachname: $("#last_name").val(),
       "E-Mail": $("#email").val(),
-      Abholdatum: $("#datepicker1").val().split(" ")[0],
-      Abholzeit: $("#datepicker1").val().split(" ")[1],
+      Abholdatum: $("#datepicker1").val(),
+      Abholzeit: $("#time1").val(),
 
       Abholadresse: $("#p_address").val(),
       Zieladresse: $("#d_address").val(),
@@ -157,9 +152,7 @@ $(".final").click(function () {
     Object.keys(obj).forEach((val, key) => {
       html += `<tr><td>${val}</td><td>${obj[val]}</td ></tr>`;
     });
-
     $(".summary").html(html);
   }
-
 });
 

@@ -7,10 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css" />
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+    rel="stylesheet">
+
+
+
   <link rel="stylesheet" href="./assets/css/custom.css" />
   <style>
     .person i {
@@ -53,7 +58,7 @@
       color: red;
     }
 
-    table tr td:first-child {
+    .summary tr td:first-child {
       width: 3%;
     }
 
@@ -105,276 +110,354 @@
       <br />
       <!-- <h3 class="fs-subtitle">This is step 1</h3> -->
       <div class="row">
-        <div class="col-md-6">
-          <img data_name="Taxifahrt" id="car" src="./assets/png/car.png" /><br />
-          <span style="text-align: center">Taxifahrt</span>
+        <div class="col-md-12" style="text-align: center;">
+          <!-- <img style="width: 50%;" data_name="Taxifahrt" id="car" src="./assets/png/car.png" /><br /> -->
+          <input type="radio" id="car" name="fav_language" value="car">
+          <label for="car">Taxifahrt</label><br>
+
+          <!-- <img style="width: 50%;" data_name="Flughafentransfer" id="plane" src="./assets/png/plane.png" /><br /> -->
+
         </div>
-        <div class="col-md-6">
-          <img data_name="Flughafentransfer" id="plane" src="./assets/png/plane.png" /><br />
-          <span style="text-align: center">Flughafentransfer</span>
+        <div class="col-md-12 mt-3 mb-3" style="text-align: center;">
+          <input type="radio" id="plane" name="fav_language" value="plane">
+          <label for="plane">Flughafentransfer</label><br>
         </div>
       </div>
 
-      <input type="button" id="t_button" name="next" class="next action-button dis_button" value="Weiter" disabled />
+      <input type="button" id="t_button" name="next" class="next action-button" value="Weiter" />
     </fieldset>
     <fieldset>
-      <div class="plane">
-        <br />
-        <h2 class="fs-title">Flughafentransfer Informationen</h2>
-        <br />
-        <div class="row err_row">
-          <div class="col-6 err_col mt-2">
-            <div class="form-floating">
-              <select class="form-select" id="drive" name="drive">
-                <option value="0">Vom Flughafen</option>
-                <option value="1">Zum Flughafen</option>
-              </select>
-              <label for="drive" class="form-label">Fahrt</label>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="plane">
+            <br /><br />
+            <h2 class="fs-title">Flughafentransfer Informationen</h2>
+            <br />
+            <br />
+            <div class="row">
+              <div class="col-md-6 mt-2">
+                <div class="form-floating">
+                  <select class="form-select" id="drive" name="drive">
+                    <option value="0">Vom Flughafen</option>
+                    <option value="1">Zum Flughafen</option>
+                  </select>
+                  <label for="drive" class="form-label">Fahrt</label>
+                </div>
+              </div>
+              <div class="col-md-3 mt-2">
+                <div class="form-floating">
+                  <input type="text" id="datepicker" class="form-control" placeholder="Select a date">
+                  <label for="datepicker" id="datepicker">Datum*</label>
+                </div>
+              </div>
+              <div class="col-md-3 mt-2">
+                <div class="form-floating">
+                  <input type="time" id="timepicker" name="timepicker" class="form-control" value="10:05"
+                    style="height: 60px" />
+                  <label for="timepicker" id="timepicker" class="time">Uhrzeit*</label>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col-6 err_col mt-2">
-            <div class="form-floating">
-              <input id="datepicker" placeholder="Datum / Uhrzeit" class="form-control bg-white datepicker"
-                data-date-format="m/d/Y G:iK" data-enable-time="true" id="date" style="height: 60px" />
-              <label for="date">Datum / Uhrzeit</label>
+            <h3 class="fs-label mt-3 flug">Flug <span style="color: red">*</span></h3>
+            <div class="row flug">
+              <div class="col-md-6" style="margin-bottom: 10px;">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="dep_location" placeholder="Enter Abflugort"
+                    name="dep_location" />
+                  <label for="Street">Abflugort</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="fli_number" placeholder="Enter Flugnummer"
+                    name="fli_number" />
+                  <label for="email">Flugnummer</label>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <h3 class="fs-label mt-3 flug">Flug <span style="color: red">*</span></h3>
-        <div class="row flug">
-          <div class="col-md-6">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="dep_location" placeholder="Enter Abflugort"
-                name="dep_location" />
-              <label for="Street">Abflugort</label>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="fli_number" placeholder="Enter Flugnummer"
-                name="fli_number" />
-              <label for="email">Flugnummer</label>
-            </div>
-          </div>
-        </div>
-        <h3 class="fs-label-1 mt-3">
-          Zieladresse <span style="color: red">*</span>
-        </h3>
-        <h3 class="fs-label-2 mt-3" style="display: none">
-          Abholadresse <span style="color: red">*</span>
-        </h3>
+            <h3 class="fs-label-1 mt-3">
+              Zieladresse <span style="color: red">*</span>
+            </h3>
+            <h3 class="fs-label-2 mt-3" style="display: none">
+              Abholadresse <span style="color: red">*</span>
+            </h3>
 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="address_p" name="address_p" placeholder="Enter Zieladresse">
-              <label for="address_p" id="pick">Zieladresse</label>
-              <label for="address_p" id="destination" style="display: none">Abholadresse</label>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col-md-6 mb-3" style="margin-top: 4%;">
-            <div class="form-floating">
-              <select class="form-select" id="info_selection" name="info_selection">
-                <option value="0">Ankunftshalle</option>
-                <option value="1">Infoschalter</option>
-              </select>
-              <label for="info_selection" class="form-label">Informationen</label>
-            </div>
-          </div>
-          <div class="col-6 err_col">
-            <img class="subimg1" id="arrival" src="./assets/png/car.png" />
-            <div class="zoomed-image-container" id="zoomedArrivalContainer">
-              <img class="zoomed-image" id="zoomedArrival" src="./assets/png/car.png" />
-            </div>
-            <img class="subimg2" id="desk" src="./assets/png/bus.png" style="display: none" />
-          </div>
-        </div>
-      </div>
-      <div class="car" style="display: none">
-        <h2 class="fs-title">Fahrtendetails</h2>
-        <!-- <h3 class="fs-subtitle">Your presence on the social network</h3> -->
-        <div class="row">
-          <div class="col-12">
-            <div class="form-floating">
-              <input id="datepicker1" placeholder="Datum / Uhrzeit" class="form-control bg-white datepicker"
-                data-date-format="m/d/Y G:iK" data-enable-time="true" id="date" style="height: 60px" />
-              <label for="date">Datum / Uhrzeit</label>
-            </div>
-          </div>
-        </div>
-        <h3 class="fs-label mt-3">Abholadresse</h3>
+            <div class="row cus-row">
+              <div class="col-md-10" style='margin-bottom:10px'>
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="address_p" name="address_p"
+                    placeholder="Enter Zieladresse">
+                  <label for="address_p" id="pick">Zieladresse</label>
+                  <label for="address_p" id="destination" style="display: none">Abholadresse</label>
 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="p_address" name="p_address" placeholder="Enter Abholadresse">
-              <label for="p_address">Abholadresse</label>
+                </div>
+
+              </div>
+              <div class="col-md-1" style="line-height: 58px;">
+                <i class="fa fa-solid fa-plus">Inc</i>
+              </div>
+              <div class="col-md-1" style="line-height: 58px;">
+                <i class="fa fa-solid fa-minus">Dec</i>
+              </div>
+            </div>
+            <div class="row mt-2 vom">
+              <div class="col-md-6 mb-3" style="margin-top: 4%;">
+                <div class="form-floating">
+                  <select class="form-select" id="info_selection" name="info_selection">
+                    <option value="0">Ankunftshalle</option>
+                    <option value="1">Infoschalter</option>
+                  </select>
+                  <label for="info_selection" class="form-label">Informationen</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <img class="subimg1" id="arrival" src="./assets/png/car.png" />
+                <div class="zoomed-image-container" id="zoomedArrivalContainer">
+                  <img class="zoomed-image" id="zoomedArrival" src="./assets/png/car.png" />
+                </div>
+                <img class="subimg2" id="desk" src="./assets/png/bus.png" style="display: none" />
+              </div>
             </div>
           </div>
-        </div>
-        <h3 class="fs-label mt-3">Zieladresse</h3>
+          <div class="car" style="display: none">
+            <br />
+            <h2 class="fs-title">Fahrtendetails</h2>
+            <br />
+            <!-- <h3 class="fs-subtitle">Your presence on the social network</h3> -->
+            <div class="row">
+              <div class="col-md-6" style='margin-bottom:10px'>
+                <div class="form-floating">
+                  <input id="datepicker1" placeholder="Datum / Uhrzeit" class="form-control bg-white datepicker"
+                    data-date-format="m/d/Y G:iK" data-enable-time="true" style="height: 60px" />
+                  <label for="datepicker1" id="datepicker1">Datum*</label>
+                </div>
 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="d_address" name="d_address" placeholder="Enter Zieladresse">
-              <label for="d_address">Zieladresse</label>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="time" id="timepicker1" name="timepicker1" class="form-control" value="10:05"
+                    style="height: 60px" />
+                  <label for="timepicker1" id="timepicker1">Uhrzeit*</label>
+                </div>
+              </div>
             </div>
+            <h3 class="fs-label mt-3">Abholadresse</h3>
+
+            <div class="row cus-row1" style="margin-bottom: 10px;">
+              <div class="col-md-10">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="p_address" name="p_address"
+                    placeholder="Enter Abholadresse">
+                  <label for="p_address">Abholadresse</label>
+                </div>
+              </div>
+              <div class="col-md-1" style="line-height: 58px;">
+                <i class="fa fa-solid fa-plus new-plus1">Inc</i>
+              </div>
+              <div class="col-md-1" style="line-height: 58px;">
+                <i class="fa fa-solid fa-minus new-minus1">Dec</i>
+              </div>
+            </div>
+            <h3 class="fs-label mt-3">Zieladresse</h3>
+
+            <div class="row cus-row2" style="margin-bottom: 10px;">
+              <div class="col-md-10">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="d_address" name="d_address"
+                    placeholder="Enter Zieladresse">
+                  <label for="d_address">Zieladresse</label>
+                </div>
+              </div>
+              <div class="col-md-1" style="line-height: 58px;">
+                <i class="fa fa-solid fa-plus new-plus2">Inc</i>
+              </div>
+              <div class="col-md-1" style="line-height: 58px;">
+                <i class="fa fa-solid fa-minus new-minus2">Dec</i>
+              </div>
+            </div>
+
           </div>
         </div>
+        <div class="col-md-3 mb-2 mt-5" style="text-align: left;">
+          <strong>Hin- und Rückfahrt</strong><br />
+          Bitte geben Sie hier die Daten der Fahrt zum Flughafen an. Die Rückfahrt können Sie nach der Buchung der
+          Hinfahrt buchen.
 
+          Die Abholadresse(n) wird dann automatisch als Zieladresse übernommen, kann aber natürlich noch geändert
+          werden.
+        </div>
       </div>
       <input type="button" name="previous" class="previous action-button" value="Zurück" />
       <input type="button" name="next" class="next action-button" value="Weiter" />
     </fieldset>
     <fieldset>
       <br />
-      <h2 class="fs-title" style="font-size: 100%;">Fahrgast Informationen</h2>
+      <h2 class="fs-title">Fahrgast Informationen</h2>
       <!-- <h3 class="fs-subtitle">Your presence on the social network</h3> -->
 
-      <div class="row err_row">
-        <div class="col-6 err_col" style="margin-top: 4%;">
-          <div class="form-floating">
-            <select class="form-select" id="type_selection" name="type_selection">
-              <option value="0">PKW</option>
-              <option value="1">Bus</option>
-            </select>
-            <label for="type_selection" class="form-label">Fahrzeugauswahl</label>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-6" style="margin-top: 4%;">
+              <div class="form-floating">
+                <select class="form-select" id="type_selection" name="type_selection">
+                  <option value="0">PKW</option>
+                  <option value="1">Bus</option>
+                </select>
+                <label for="type_selection" class="form-label">Fahrzeugauswahl</label>
+              </div>
+              <br />
+              <div id="vehicle-warning" style="color: red; display: none; text-align: left; font-size: 10px;">
+                Achtung! Sind Sie sicher, dass Sie und Ihr Gepäck in einem PKW ausreichend Platz haben? Falls sich bei
+                der
+                Abfahrt herausstellen sollte, dass nicht ausreichend Platz vorhanden ist, müssen wir Ihnen die Kosten
+                für
+                ein größeres Fahrzeug in Rechnung stellen oder die Fahrt ggf. stornieren.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <img class="subimg1" id="car" src="./assets/png/car.png" />
+              <img class="subimg2" id="car" src="./assets/png/bus.png" style="display: none" />
+            </div>
+
           </div>
+
+          <div class="row mt-5">
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="person" placeholder="Enter Personen" name="person" max="8"
+                  min="0" value="0" />
+                <label for="person">Personen</label>
+              </div>
+              <div class="person mt-5 mb-5" style="text-align: left;">
+                <i class="fa-solid fa-person fa-2xl"></i>
+                <i class="fa-solid fa-person fa-2xl"></i>
+                <i class="fa-solid fa-person fa-2xl"></i> <br /><br />
+                <i class="fa-solid fa-person fa-2xl"></i>
+                <span class="person_op"><i class="fa-solid fa-person fa-2xl"></i>
+                  <i class="fa-solid fa-person fa-2xl"></i> <br /><br />
+                  <i class="fa-solid fa-person fa-2xl"></i>
+                  <i class="fa-solid fa-person fa-2xl"></i></span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="large" placeholder="Enter Gepäck GroB" name="large"
+                  value="0" max="8" min="0" />
+                <label for="large">Gepäck GroB</label>
+              </div>
+              <div class="large mt-5 mb-5" style="text-align: left;">
+                <i class="fa-solid fa-briefcase fa-2xl"></i>
+                <i class="fa-solid fa-briefcase fa-2xl"></i>
+                <span class="large_op">
+                  <i class="fa-solid fa-briefcase fa-2xl"></i> <br /><br />
+                  <i class="fa-solid fa-briefcase fa-2xl"></i>
+                  <i class="fa-solid fa-briefcase fa-2xl"></i>
+                  <i class="fa-solid fa-briefcase fa-2xl"></i> <br /><br />
+                  <i class="fa-solid fa-briefcase fa-2xl"></i>
+                  <i class="fa-solid fa-briefcase fa-2xl"></i>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="small" placeholder="Enter Gepäck klein" name="small"
+                  value="0" max="8" min="0" />
+                <label for="small">Gepäck klein</label>
+              </div>
+              <div class="small mt-5 mb-5" style="text-align: left;">
+                <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+                <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+                <i class="fa-solid fa-suitcase-rolling fa-2xl"></i> <br /><br />
+                <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+                <span class="small_op">
+                  <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+                  <i class="fa-solid fa-suitcase-rolling fa-2xl"></i> <br /><br />
+                  <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+                  <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
+                </span>
+
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-check mb-2" style="text-align: left">
+                <input class="form-check-input" type="checkbox" value="" id="special" name="special" />
+                <label class="form-check-label ml-3" for="special" style="text-align: left">
+                  Sondergepäck(Nur mit Bus möglich)<br />
+                  <span style="color: rgba(0, 0, 0, 0.4);">Sperrig. ZB. Surfboard, Schi, Kinderwagen, ...</span>
+                </label>
+              </div>
+              <div class="form-floating mt-5 info" style="top: -20px; display: none">
+                <textarea type="text" class="form-control" id="info" placeholder="Enter Anmerkungen" name="info"
+                  rows="5"></textarea>
+                <label for="info">Sondergepäck</label>
+              </div>
+            </div>
+          </div>
+
           <br />
-          <div id="vehicle-warning" style="color: red; display: none; text-align: left; font-size: 10px;">
-            Achtung! Sind Sie sicher, dass Sie und Ihr Gepäck in einem PKW ausreichend Platz haben? Falls sich bei der
-            Abfahrt herausstellen sollte, dass nicht ausreichend Platz vorhanden ist, müssen wir Ihnen die Kosten für
-            ein größeres Fahrzeug in Rechnung stellen oder die Fahrt ggf. stornieren.
+          <div style="display: flex; margin-bottom: 10px;">
+            <div class="form-check mb-2" style="text-align: left; margin-top: 6px;">
+              <input class="form-check-input" type="checkbox" id="child" name="child" />
+              <label class="form-check-label ml-3" for="child" style="text-align: left;">
+                Kindersitz
+              </label>
+            </div>
+            <div id="child_d" style="display: none; margin-left: 75px;">
+              <a id="child_m" style="transform: scale(1.3);
+          margin-top: 9px;">-</a>
+              <input type="text" class="form-control" max="3" min="0" style="width: 36px;
+            margin: 0px 9px;" id="child_n" name="child_n" value="0" />
+              <a id="child_p" style="transform: scale(1.3);
+          margin-top: 9px;">+</a>
+            </div>
           </div>
-        </div>
+          <div style="display: flex;  margin-bottom: 10px;">
+            <div class="form-check mb-2" style="text-align: left; margin-top: 6px;">
+              <input class="form-check-input" type="checkbox" value="" id="baby" name="baby" />
+              <label class="form-check-label ml-3" for="baby" style="text-align: left">
+                Babyschale
+              </label>
+            </div>
+            <div id="baby_d" style="display: none; margin-left: 57px;">
+              <a id="baby_m" style="transform: scale(1.3);
+          margin-top: 9px;">-</a>
+              <input type="text" class="form-control" max="3" min="0" style="width: 36px;
+            margin: 0px 9px;" id="baby_n" name="baby_n" value="0" />
+              <a id="baby_p" style="transform: scale(1.3);
+          margin-top: 9px;">+</a>
+            </div>
+          </div>
+          <div style="display: flex;  margin-bottom: 10px;">
+            <div class="form-check mb-2" style="text-align: left; margin-top: 6px;">
+              <input class="form-check-input" type="checkbox" value="" id="booster" name="booster" />
+              <label class="form-check-label ml-3" for="booster" style="text-align: left">
+                Sitzerhöhung
+              </label>
+            </div>
+            <div id="booster_d" style="display: none; margin-left: 47px;">
+              <a id="booster_m" style="transform: scale(1.3);
+          margin-top: 9px;">-</a>
+              <input type="text" class="form-control" max="3" min="0" style="width: 36px;
+            margin: 0px 9px;" id="booster_n" name="booster_n" value="0" />
+              <a id="booster_p" style="transform: scale(1.3);
+          margin-top: 9px;">+</a>
+            </div>
+          </div>
 
-        <div class="col-6 err_col">
-          <img class="subimg1" id="car" src="./assets/png/car.png" />
-          <img class="subimg2" id="car" src="./assets/png/bus.png" style="display: none" />
+          <div style="text-align: right;">Price</div>
+          <div style="text-align: right;" id="priceDisplay">$0.00</div>
         </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-md-4">
-          <div class="form-floating">
-            <input type="number" class="form-control" id="person" placeholder="Enter Personen" name="person"
-              value="0" />
-            <label for="person">Personen</label>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-floating">
-            <input type="number" class="form-control" id="large" placeholder="Enter Gepäck GroB" name="large"
-              value="0" />
-            <label for="large">Gepäck GroB</label>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-floating">
-            <input type="number" class="form-control" id="small" placeholder="Enter Gepäck klein" name="small"
-              value="0" />
-            <label for="small">Gepäck klein</label>
-          </div>
+        <div class="col-md-3 mb-2 mt-2" style="text-align: left;">
+          <strong>Hin- und Rückfahrt</strong><br />
+          Bitte geben Sie hier die Daten der Fahrt zum Flughafen an. Die Rückfahrt können Sie nach der Buchung der
+          Hinfahrt buchen.
+
+          Die Abholadresse(n) wird dann automatisch als Zieladresse übernommen, kann aber natürlich noch geändert
+          werden.
         </div>
       </div>
 
-      <div class="row mt-5">
-        <div class="col-md-4 mb-5">
-          <div class="person" style="text-align: left;">
-            <i class="fa-solid fa-person fa-2xl"></i>
-            <i class="fa-solid fa-person fa-2xl"></i>
-            <i class="fa-solid fa-person fa-2xl"></i> <br /><br />
-            <i class="fa-solid fa-person fa-2xl"></i>
-            <i class="fa-solid fa-person fa-2xl"></i>
-            <i class="fa-solid fa-person fa-2xl"></i> <br /><br />
-            <i class="fa-solid fa-person fa-2xl"></i>
-            <i class="fa-solid fa-person fa-2xl"></i>
-          </div>
-        </div>
-        <div class="col-md-4  mb-5">
-          <div class="large" style="text-align: left;">
-            <i class="fa-solid fa-briefcase fa-2xl"></i>
-            <i class="fa-solid fa-briefcase fa-2xl"></i>
-            <i class="fa-solid fa-briefcase fa-2xl"></i> <br /><br />
-            <i class="fa-solid fa-briefcase fa-2xl"></i>
-            <i class="fa-solid fa-briefcase fa-2xl"></i>
-            <i class="fa-solid fa-briefcase fa-2xl"></i> <br /><br />
-            <i class="fa-solid fa-briefcase fa-2xl"></i>
-            <i class="fa-solid fa-briefcase fa-2xl"></i>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="small" style="text-align: left;">
-            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
-            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
-            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i> <br /><br />
-            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
-            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
-            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i> <br /><br />
-            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
-            <i class="fa-solid fa-suitcase-rolling fa-2xl"></i>
-          </div>
-        </div>
-      </div>
-      <!-- <div class="row mt-5">
-          <div class="col-md-6">
-            <input type="checkbox" value="" id="flexCheckDefault" />
-            <label class="form-check-label" for="flexCheckDefault">
-              Default checkbox
-            </label>
-          </div>
-        </div> -->
-      <br />
-      <br />
-      <div style="display: flex; margin-bottom: 10px;">
-        <div class="form-check mb-2" style="text-align: left; margin-top: 6px;">
-          <input class="form-check-input" type="checkbox" value="" id="child" name="child" />
-          <label class="form-check-label ml-3" for="child" style="text-align: left;">
-            Kindersitz
-          </label>
-        </div>
-        <select class="form-select" style="width: 10px; margin-left: 43px; display: none;" id="child" name="child">
-          <option value="0">1</option>
-          <option value="1">2</option>
-          <option value="1">3</option>
-        </select>
-      </div>
-      <div style="display: flex;  margin-bottom: 10px;">
-        <div class="form-check mb-2" style="text-align: left; margin-top: 6px;">
-          <input class="form-check-input" type="checkbox" value="" id="baby" name="baby" />
-          <label class="form-check-label ml-3 test" for="baby" style="text-align: left">
-            Babyschale
-          </label>
-        </div>
-        <select class="form-select" style="width: 10px; margin-left: 25px; display: none" id="baby" name="baby">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </div>
-      <div style="display: flex;  margin-bottom: 10px;">
-        <div class="form-check mb-2" style="text-align: left; margin-top: 6px;">
-          <input class="form-check-input" type="checkbox" value="" id="booster" name="booster" />
-          <label class="form-check-label ml-3" for="booster" style="text-align: left">
-            Sitzerhöhung
-          </label>
-        </div>
-        <select class="form-select" style="width: 10px; margin-left: 15px; display: none" id="booster" name="booster">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </select>
-      </div>
-      <div class="form-check mb-2" style="text-align: left">
-        <input class="form-check-input" type="checkbox" value="" id="special" name="special" />
-        <label class="form-check-label ml-3" for="special" style="text-align: left">
-          Sondergepäck
-        </label>
-      </div>
-      <div style="text-align: right;">Price</div>
-      <div style="text-align: right;" id="priceDisplay">$0.00</div>
 
       <input type="button" name="previous" class="previous action-button mt-4" value="Zurück" />
       <input type="button" name="next" class="next action-button mt-4" value="Weiter" />
@@ -382,38 +465,50 @@
     <fieldset>
       <br />
       <h2 class="fs-title">Kontakt Informationen</h2>
-      <div class="row mt-5">
-        <div class="col-md-6">
-          <div class="form-floating">
-            <input type="text" class="form-control" id="fist_name" placeholder="Enter Vorname" name="fist_name" />
-            <label for="fist_name">Vorname</label>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="row mt-5">
+            <div class="col-md-6" style="margin-bottom: 10px;">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="fist_name" placeholder="Enter Vorname" name="fist_name" />
+                <label for="fist_name">Vorname</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="last_name" placeholder="Enter Nachname" name="last_name" />
+                <label for="last_name">Nachname</label>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-md-6" style="margin-bottom: 10px;">
+              <div class="form-floating">
+                <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" />
+                <label for="email">Email</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" id="phone" type="tel" name="phone" style="height: 57px; " />
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-md-6">
+              <div class="form-floating">
+                <textarea type="text" class="form-control" id="remarks" placeholder="Enter Anmerkungen" name="remarks"
+                  cols="30"></textarea>
+                <label for="remarks">Anmerkungen</label>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-floating">
-            <input type="text" class="form-control" id="last_name" placeholder="Enter Nachname" name="last_name" />
-            <label for="last_name">Nachname</label>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-md-6" style="margin-bottom: 10px;">
-          <div class="form-floating">
-            <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" />
-            <label for="email">Email</label>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <input class="form-control" id="phone" type="tel" name="phone" style="height: 57px; " />
-        </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-md-6">
-          <div class="form-floating">
-            <textarea type="text" class="form-control" id="remarks" placeholder="Enter Anmerkungen" name="remarks"
-              cols="30"></textarea>
-            <label for="remarks">Anmerkungen</label>
-          </div>
+        <div class="col-md-3 mb-2 mt-2" style="text-align: left;">
+          <strong>Hin- und Rückfahrt</strong><br />
+          Bitte geben Sie hier die Daten der Fahrt zum Flughafen an. Die Rückfahrt können Sie nach der Buchung der
+          Hinfahrt buchen.
+
+          Die Abholadresse(n) wird dann automatisch als Zieladresse übernommen, kann aber natürlich noch geändert
+          werden.
         </div>
       </div>
       <input type="button" name="previous" class="previous action-button" value="Zurück" />
@@ -425,7 +520,61 @@
       <br />
       <div class="row">
         <div class="col-md-12">
-          <table class="summary table table-bordered"></table>
+          <!-- <table class="summary table table-bordered"></table> -->
+
+          <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
+            <div class="wrapper svelte-z6ieo0">
+              <div class="wrapper svelte-xrd5qq">
+                <div class="number svelte-xrd5qq">1</div>
+                <div class="title svelte-xrd5qq">Adresse</div>
+              </div>
+              <div class="content svelte-z6ieo0">
+                <div class="label svelte-1cpy0qt">Von</div>
+                <div class="value svelte-1cpy0qt">Flughafen Wien</div>
+                <div class="label svelte-1cpy0qt">Nach</div>
+                <div class="value svelte-1cpy0qt">Am Hof 4, 1010 Wien</div>
+                <div class="label svelte-1cpy0qt">Datum</div>
+                <div class="value svelte-1cpy0qt">30.04.2024 um 22:36</div>
+                <div class="label svelte-1cpy0qt">Flugnummer</div>
+                <div class="value svelte-1cpy0qt">aasdf</div>
+                <div class="label svelte-1cpy0qt">Flughafen</div>
+                <div class="value svelte-1cpy0qt">Amsterdam</div>
+              </div>
+            </div>
+            <div class="wrapper svelte-z6ieo0">
+              <div class="wrapper svelte-xrd5qq">
+                <div class="number svelte-xrd5qq">2</div>
+                <div class="title svelte-xrd5qq">Fahrt-/Fahrzeugdetails</div>
+              </div>
+              <div class="content svelte-z6ieo0">
+                <div class="label svelte-1cpy0qt">Typ</div>
+                <div class="value svelte-1cpy0qt">Business</div>
+                <div class="label svelte-1cpy0qt">Fahrzeug</div>
+                <div class="value svelte-1cpy0qt">Bus</div>
+                <div class="label svelte-1cpy0qt">Personen</div>
+                <div class="value svelte-1cpy0qt">⁨4⁩ ⁨Personen⁩</div>
+              </div>
+            </div>
+            <div class="wrapper svelte-z6ieo0">
+              <div class="wrapper svelte-xrd5qq">
+                <div class="number svelte-xrd5qq">3</div>
+                <div class="title svelte-xrd5qq">Persönliche Daten</div>
+              </div>
+              <div class="content svelte-z6ieo0">
+                <div class="label svelte-1cpy0qt">Vorname</div>
+                <div class="value svelte-1cpy0qt">asdf sadf</div>
+                <div class="label svelte-1cpy0qt">Nachname</div>
+                <div class="value svelte-1cpy0qt">a@gmail.com</div>
+                <div class="label svelte-1cpy0qt">Email</div>
+                <div class="value svelte-1cpy0qt">asdfasdf</div>
+                <div class="label svelte-1cpy0qt">Telefon</div>
+                <div class="value svelte-1cpy0qt">sadf</div>
+                <div class="label svelte-1cpy0qt">Anmerkungen</div>
+                <div class="value svelte-1cpy0qt">asdf asdf</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="form-check mb-2" style="text-align: left">
@@ -442,12 +591,17 @@
     </fieldset>
   </form>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <!-- <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKurnK0MaGjmukvRAxnewj7D6LW7gt4yo&libraries=places"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+  <!-- Include Bootstrap Datepicker JS -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKurnK0MaGjmukvRAxnewj7D6LW7gt4yo&libraries=places"></script>
   <script src="./assets/js/custom.js"></script>
 </body>
 <script>
@@ -459,7 +613,6 @@
 
   const smallIcons = document.querySelectorAll(".small i");
   const smallInput = document.getElementById("small");
-
   function updatePersonIcons() {
     const value = parseInt(numberInput.value);
     personIcons.forEach((icon, index) => {
@@ -472,7 +625,13 @@
 
 
     // Check if the value exceeds 5 to automatically select "Bus"
-    if (value >= 5) $("#type_selection").val("1");
+    if (value >= 5) {
+      $("#type_selection").val("1");
+      $(".person_op").css({ "opacity": 1 });
+      $(".small_op").css({ "opacity": 1 });
+      $(".large_op").css({ "opacity": 1 });
+
+    }
   }
 
   function updateLargeIcons() {
@@ -548,25 +707,161 @@
 <script>
   const phoneInputField = document.querySelector("#phone");
   const phoneInput = window.intlTelInput(phoneInputField, {
+    initialCountry: "at",
     utilsScript:
       "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
   });
 </script>
 <script>
+  // Get today's date
+  var today = new Date();
+  var tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
+  // Format tomorrow's date as yyyy-mm-dd
+  var formattedTomorrow = formatDate(tomorrow);
+
+  // Set the datepicker value to tomorrow's date
+  $('#datepicker').val(formattedTomorrow);
+  $('#datepicker1').val(formattedTomorrow);
+
+  // Function to format date as yyyy-mm-dd
+  function formatDate(date) {
+    var year = date.getFullYear();
+    var month = ('0' + (date.getMonth() + 1)).slice(-2); // Adding 1 because months are zero-based
+    var day = ('0' + date.getDate()).slice(-2);
+    return year + '-' + month + '-' + day;
+  }
+  $('#datepicker').datepicker({
+    format: 'yyyy-mm-dd', // Date format
+    autoclose: true, // Close the datepicker when a date is selected
+    todayHighlight: true, // Highlight today's date
+    startDate: '+2d' // Set the minimum selectable date to tomorrow
+  });
+  $('#datepicker1').datepicker({
+    format: 'yyyy-mm-dd', // Date format
+    autoclose: true, // Close the datepicker when a date is selected
+    todayHighlight: true, // Highlight today's date
+    startDate: '+2d' // Set the minimum selectable date to tomorrow
+  });
+  // Select the timepicker input
+  var $timepicker = $('#timepicker');
+  var $timepicker1 = $('#timepicker1');
+
+  // Create a new Date object for the current time
+  var currentTime = new Date();
+
+  // Get the current hours and minutes
+  var currentHours = currentTime.getHours();
+  var currentMinutes = currentTime.getMinutes();
+
+  // Format the current time as HH:mm (e.g., 14:30)
+  var formattedTime = formatTime(currentHours, currentMinutes);
+
+  // Set the value of the timepicker input to the current time
+  $timepicker.val(formattedTime);
+  $timepicker1.val(formattedTime);
+
+
+
+  // Function to format time as HH:mm
+  function formatTime(hours, minutes) {
+    // Ensure hours and minutes are two digits (e.g., 05 instead of 5)
+    var formattedHours = ('0' + hours).slice(-2);
+    var formattedMinutes = ('0' + minutes).slice(-2);
+
+    // Return formatted time as "HH:mm" string
+    return formattedHours + ':' + formattedMinutes;
+  }
+  var $timepicker = $('#timepicker');
+
+  // Attach an event listener for when the time value changes
+  $timepicker.on('change', function () {
+    // Get the selected time value from the time picker input
+    var selectedTime = $(this).val();
+
+    if (!selectedTime) {
+      console.log("Please select a valid time.");
+      return;
+    }
+
+    // Create a new Date object for the current time
+    var currentTime = new Date();
+
+    // Extract hours and minutes from the selected time value
+    var selectedHours = parseInt(selectedTime.split(':')[0], 10);
+    var selectedMinutes = parseInt(selectedTime.split(':')[1], 10);
+
+    // Set the selected time on the currentTime object
+    currentTime.setHours(selectedHours, selectedMinutes, 0, 0);
+
+    // Compare selected time with current time
+    if (currentTime > new Date()) {
+      console.log(currentTime);
+      $("label#datepicker").css({ "color": "black" });
+      $("label#timepicker").css({ "color": "black" });
+    } else {
+      $("label#datepicker").css({ "color": "red" });
+      $("label#timepicker").css({ "color": "red" });
+    }
+  });
+
+  var $timepicker1 = $('#timepicker1');
+
+  $timepicker1.on('change', function () {
+    // Get the selected time value from the time picker input
+    var selectedTime = $(this).val();
+
+    if (!selectedTime) {
+      console.log("Please select a valid time.");
+      return;
+    }
+
+    // Create a new Date object for the current time
+    var currentTime = new Date();
+
+    // Extract hours and minutes from the selected time value
+    var selectedHours = parseInt(selectedTime.split(':')[0], 10);
+    var selectedMinutes = parseInt(selectedTime.split(':')[1], 10);
+
+    // Set the selected time on the currentTime object
+    currentTime.setHours(selectedHours, selectedMinutes, 0, 0);
+
+    // Compare selected time with current time
+    if (currentTime > new Date()) {
+      $("label#datepicker1").css({ "color": "black" });
+      $("label#timepicker1").css({ "color": "black" });
+    } else {
+      $("label#datepicker1").css({ "color": "red" });
+      $("label#timepicker1").css({ "color": "red" });
+    }
+  });
+
+
   $("#drive").on("change", function () {
     var pos = $("#drive").val();
     if (pos === "0") {
       $(".fs-label-1").show();
       $(".fs-label-2").hide();
-      $("#pick").show();
-      $("#destination").hide();
+      $(".cus-row #pick").each(function (idx, obj) {
+        $(obj).show();
+      })
+      $(".cus-row #destination").each(function (idx, obj) {
+        $(obj).hide();
+      })
       $(".flug").show();
+      $(".vom").show();
     } else {
       $(".fs-label-1").hide();
       $(".fs-label-2").show();
-      $("#pick").hide();
-      $("#destination").show();
+      $(".cus-row #pick").each(function (idx, obj) {
+        $(obj).hide();
+      })
+      $(".cus-row #destination").each(function (idx, obj) {
+        $(obj).show();
+      })
       $(".flug").hide();
+      $(".vom").hide();
     }
   });
   $("#type_selection").on("change", function () {
@@ -574,9 +869,15 @@
     if (pos === "0") {
       $(".subimg1").show();
       $(".subimg2").hide();
+      $(".person_op").css({ "opacity": 0.5 });
+      $(".large_op").css({ "opacity": 0.5 });
+      $(".small_op").css({ "opacity": 0.5 });
     } else {
       $(".subimg1").hide();
       $(".subimg2").show();
+      $(".person_op").css({ "opacity": 1 });
+      $(".large_op").css({ "opacity": 1 });
+      $(".small_op").css({ "opacity": 1 });
     }
     updatePersonIcons();
     updateLargeIcons();
@@ -661,7 +962,11 @@
     }, 2000);
   });
   $("#baby").on("click", function () {
-    $("select[id=baby]").toggle();
+    if ($('#baby').prop("checked")) {
+      $("#baby_d").css({ "display": "flex" });
+    } else {
+      $("#baby_d").css({ "display": "none" });
+    }
     $("#priceDisplay").after(spinner);
     $("#priceDisplay").hide();
     setTimeout(() => {
@@ -675,7 +980,11 @@
     }, 2000);
   });
   $("#booster").on("click", function () {
-    $("select[id=booster]").toggle();
+    if ($('#booster').prop("checked")) {
+      $("#booster_d").css({ "display": "flex" });
+    } else {
+      $("#booster_d").css({ "display": "none" });
+    }
     $("#priceDisplay").after(spinner);
     $("#priceDisplay").hide();
     setTimeout(() => {
@@ -688,8 +997,13 @@
       priceDisplay.classList.add('red-text'); // Apply red color to price text
     }, 2000);
   });
+  $("#child_d")
   $("#child").on("click", function () {
-    $("select[id=child]").toggle();
+    if ($('#child').prop("checked")) {
+      $("#child_d").css({ "display": "flex" });
+    } else {
+      $("#child_d").css({ "display": "none" });
+    }
     $("#priceDisplay").after(spinner);
     $("#priceDisplay").hide();
     setTimeout(() => {
@@ -704,6 +1018,7 @@
   });
   $("#special").on("click", function () {
     $("#type_selection").val("1");
+    $(".info").toggle();
   });
 
 
@@ -712,6 +1027,98 @@
     const basePricePerPerson = 10;
     return basePricePerPerson * parseInt(personCount);
   }
+
+  $("#person").on("change", function () {
+    if ($("#person").val() > 8)
+      $("#person").val("8");
+    if ($("#person").val() < 0)
+      $("#person").val("0");
+  })
+  $("#small").on("change", function () {
+    if ($("#small").val() > 8)
+      $("#small").val("8");
+    if ($("#small").val() < 0)
+      $("#small").val("0");
+  })
+  $("#large").on("change", function () {
+    if ($("#large").val() > 8)
+      $("#large").val("8");
+    if ($("#large").val() < 0)
+      $("#large").val("0");
+
+  })
+  $("#child_m").on("click", function () {
+    if ($("#child_n").val() >= 1)
+      $("#child_n").val(+$("#child_n").val() - 1);
+  })
+  $("#child_p").on("click", function () {
+    if ($("#child_n").val() <= 2)
+      $("#child_n").val(+$("#child_n").val() + 1);
+  })
+  $("#baby_m").on("click", function () {
+    if ($("#baby_n").val() >= 1)
+      $("#baby_n").val(+$("#baby_n").val() - 1);
+
+  })
+  $("#baby_p").on("click", function () {
+    if ($("#baby_n").val() <= 2)
+      $("#baby_n").val(+$("#baby_n").val() + 1);
+
+  })
+  $("#booster_m").on("click", function () {
+    if ($("#booster_n").val() >= 1)
+      $("#booster_n").val(+$("#booster_n").val() - 1);
+
+  })
+  $("#booster_p").on("click", function () {
+    if ($("#booster_n").val() <= 2)
+      $("#booster_n").val(+$("#booster_n").val() + 1);
+
+  })
+</script>
+
+<script>
+  $(document).ready(function () {
+    // Event handler for plus icon (add row)
+    $('.fa-plus').on('click', function () {
+      let newHeading = "";
+      if ($("#drive").val() === "0") {
+        newHeading = "<div class='row cus-row'><div class='col-md-10' style='margin-bottom:10px'> <div class='form-floating'> <input type='text' class='form-control' id='address_p' name='address_p' placeholder='Enter Zieladresse'> <label for='address_p' id='pick'>Zieladresse</label> <label for='address_p' id='destination' style='display: none'>Abholadresse</label></div></div> <div class='col-md-1' style='line-height: 58px;''> </div><div class='col-md-1' style='line-height: 58px;''></div></div>";
+      } else {
+        newHeading = "<div class='row cus-row'><div class='col-10' style='margin-bottom:10px'> <div class='form-floating'> <input type='text' class='form-control' id='address_p' name='address_p' placeholder='Enter Zieladresse'> <label for='address_p' id='pick' style='display: none'>Zieladresse</label> <label for='address_p' id='destination'>Abholadresse</label></div></div> <div class='col-1' style='line-height: 58px;''> </div><div class='col-1' style='line-height: 58px;''></div></div>";
+      }
+      $('.cus-row').last().after(newHeading);
+    });
+
+    $('.new-plus1').on('click', function () {
+      let newHeading = "";
+      newHeading = "<div class='row cus-row1'><div class='col-md-10' style='margin-bottom:10px'> <div class='form-floating'> <input type='text' class='form-control' id='address_p' name='address_p' placeholder='Enter Abholadresse'><label for='address_p' id='destination'>Abholadresse</label></div></div> <div class='col-md-1' style='line-height: 58px;''> </div><div class='col-md-1' style='line-height: 58px;''></div></div>";
+      $('.cus-row1').last().after(newHeading);
+    });
+
+    $('.new-plus2').on('click', function () {
+      let newHeading = "";
+      newHeading = "<div class='row cus-row2'><div class='col-md-10' style='margin-bottom:10px'> <div class='form-floating'> <input type='text' class='form-control' id='address_p' name='address_p' placeholder='Enter Zieladresse'> <label for='address_p' id='pick'>Zieladresse</label></div></div> <div class='col-md-1' style='line-height: 58px;''> </div><div class='col-md-1' style='line-height: 58px;''></div></div>";
+      $('.cus-row2').last().after(newHeading);
+    });
+
+    // Event handler for minus icon (remove row)
+    $('.fa-minus').on('click', function () {
+      if ($('.cus-row').length > 1)
+        $('.cus-row').last().remove();
+    });
+
+    $('.new-minus1').on('click', function () {
+      if ($('.cus-row1').length > 1)
+        $('.cus-row1').last().remove();
+    });
+
+    $('.new-minus2').on('click', function () {
+      if ($('.cus-row2').length > 1)
+        $('.cus-row2').last().remove();
+    });
+
+  });
 </script>
 
 </html>
